@@ -233,6 +233,60 @@
             box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
         }
 
+        /* Стили галереи */
+        .gallery-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 16px;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .gallery-scroll::-webkit-scrollbar { display: none; }
+
+        .slide {
+            flex: 0 0 100%;
+            height: 380px;
+            scroll-snap-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+        }
+
+        .slide img, .slide video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -321,13 +375,13 @@
                     Спасибо тебе за то, что принимаешь меня таким, какой я есть. Для меня это невероятно важно. Рядом с тобой мне не нужно притворяться кем-то другим. Я могу быть собой, и именно за это я ценю тебя ещё сильнее.
                 </div>
 
-                <p>Мне очень нравится то, какие у нас отношения. Они такие тёплые, спокойные и искренные. Мы не строим их на грубости, обзывательствах или постоянных ссорах. Наоборот, у нас так много заботы, нежности и уважения друг к другу. Конечно, у нас были трудности. Были моменты, когда было больно. Но даже они показали мне, насколько сильно я дорожу тобой и насколько сильно хочу, чтобы мы были вместе.</p>
+                <p>Мне очень нравится то, какие у нас отношения. Они такие тёплые, спокойные и искренние. Мы не строим их на грубости, обзывательствах или постоянных ссорах. Наоборот, у нас так много заботы, нежности и уважения друг к другу. Конечно, у нас были трудности. Были моменты, когда было больно. Но даже они показали мне, насколько сильно я дорожу тобой и насколько сильно хочу, чтобы мы были вместе.</p>
                 
                 <div class="quote">
-                    Я знаю, что идеальных людей не существует, и идеальных отношений тоже. Но я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой, защищённой и счастливой. Я хочу поддерживать тебя, радоваться твоим успехам, быть рядом в трудные моменты и каждый день напоминать тебе, как много ты для меня значашь.
+                    Я знаю, что идеальных людей не существует, и идеальных отношений тоже. Но я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой, защищённой и счастливой. Я хочу поддерживать тебя, радоваться твоим успехам, быть рядом в трудные моменты и каждый день напоминать тебе, как много ты для меня значишь.
                 </div>
 
-                <p>Я очень благодарен своему другу, который когда-то дал мне твой аккаунт. Тогда я даже представить не мог, что это приведёт меня к самому прекрасному человеку в моем жизни. И я очень рад, что мы с ним потратили на это целый месяц , придумывая этот сайт, потому что ты заслуживаешь особенного признания.</p>
+                <p>Я очень благодарен своему другу, который когда-то дал мне твой аккаунт. Тогда я даже представить не мог, что это приведёт меня к самому прекрасному человеку в моей жизни. И я очень рад, что мы с ним потратили на это целый месяц , придумывая этот сайт, потому что ты заслуживаешь особенного признания.</p>
 
                 <p>Спасибо тебе за доверие. Спасибо за твою заботу. Спасибо за каждое сообщение, каждый звонок, каждую улыбку и каждую минуту, проведённую вместе.</p>
                 
@@ -335,6 +389,22 @@
                     Теперь ты официально моя девушка. И, честно, это делает меня самым счастливым человеком.<br><br>
                     Я очень люблю тебя жаным. И надеюсь, что это только начало нашей истории. 💘
                 </div>
+            </div>
+            <button type="button" class="action-btn" onclick="goToStep('stepGallery')">Смотреть наши фото и видео ✨</button>
+        </div>
+
+        <!-- ШАГ 6: ГАЛЕРЕЯ (ФОТО + ВИДЕО) -->
+        <div id="stepGallery" class="step">
+            <div class="subtitle">Альбом воспоминаний</div>
+            <h1 style="font-size: 1.3rem;" id="galleryTitle">Фото 1 из 20</h1>
+            
+            <div class="gallery-container">
+                <div class="gallery-scroll" id="galleryScroll"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button type="button" class="nav-btn" onclick="scrollGallery(-1)">← Назад</button>
+                <button type="button" class="nav-btn" onclick="scrollGallery(1)">Вперед →</button>
             </div>
         </div>
     </div>
@@ -349,6 +419,9 @@
             const target = document.getElementById(stepId);
             if (target) {
                 target.classList.add('active');
+                if (stepId === 'stepGallery') {
+                    initGallery();
+                }
             }
         }
 
@@ -397,6 +470,56 @@
             }).catch(err => console.error(err));
 
             goToStep(nextStep);
+        }
+
+        // Сборка галереи из 14 фото и 6 видео
+        let currentIndex = 0;
+        const totalItems = 20; // 14 фото + 6 видео
+
+        function initGallery() {
+            const scrollContainer = document.getElementById('galleryScroll');
+            scrollContainer.innerHTML = '';
+
+            // Добавляем 14 фото
+            for (let i = 1; i <= 14; i++) {
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                slide.innerHTML = `<img src="photo${i}.jpg" alt="Фото ${i}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600';">`;
+                scrollContainer.appendChild(slide);
+            }
+
+            // Добавляем 6 видео
+            for (let i = 1; i <= 6; i++) {
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                slide.innerHTML = `<video src="video${i}.mp4" controls preload="metadata" style="max-width:100%; max-height:100%; border-radius:12px;"></video>`;
+                scrollContainer.appendChild(slide);
+            }
+
+            updateGalleryTitle();
+        }
+
+        function scrollGallery(direction) {
+            const scrollContainer = document.getElementById('galleryScroll');
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = totalItems - 1;
+            if (currentIndex >= totalItems) currentIndex = 0;
+
+            const slideWidth = scrollContainer.clientWidth;
+            scrollContainer.scrollTo({
+                left: currentIndex * slideWidth,
+                behavior: 'smooth'
+            });
+            updateGalleryTitle();
+        }
+
+        function updateGalleryTitle() {
+            const title = document.getElementById('galleryTitle');
+            if (currentIndex < 14) {
+                title.innerText = `Фото ${currentIndex + 1} из 14 📸`;
+            } else {
+                title.innerText = `Видео-липсинг ${currentIndex - 13} из 6 🎬`;
+            }
         }
     </script>
 </body>
