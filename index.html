@@ -233,81 +233,6 @@
             box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
         }
 
-        /* Галерея */
-        .gallery-container {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .gallery-scroll {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
-
-        .gallery-scroll::-webkit-scrollbar { display: none; }
-
-        .slide {
-            flex: 0 0 100%;
-            height: 360px;
-            scroll-snap-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-        }
-
-        .slide img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-
-        .dots {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 14px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            background: #ec4899;
-            width: 20px;
-            border-radius: 10px;
-        }
-
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-        }
-
-        .modal img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 12px;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -390,19 +315,19 @@
 
                 <p>Мы так быстро стали близкими. Всего за пару месяцев мы уже говорили о любви, открывались друг другу, рассказывали то, что не рассказывали другим. С каждым днём я понимал, что ты становишься для меня всё важнее.</p>
 
-                <p>Я полюбил в тебе абсолютно всё. Твою доброту, которая чувствуется в каждом слове. Tвой смех и твои крики во время игр в звонке, которые всегда заставляют меня улыбаться. Твои красивые глаза, в которые хочется смотреть бесконечно. Твои губы, твою улыбку, твоё спокойствие. Мне безумно нравится, как ты умеешь поддерживать меня, понимать даже тогда, когда мне самому трудно объяснить свои чувства.</p>
+                <p>Я полюбил в тебе абсолютно всё. Твою доброту, которая чувствуется в каждом слове. Твой смех и твои крики во время игр в звонке, которые всегда заставляют меня улыбаться. Твои красивые глаза, в которые хочется смотреть бесконечно. Твои губы, твою улыбку, твоё спокойствие. Мне безумно нравится, как ты умеешь поддерживать меня, понимать даже тогда, когда мне самому трудно объяснить свои чувства.</p>
                 
                 <div class="quote">
                     Спасибо тебе за то, что принимаешь меня таким, какой я есть. Для меня это невероятно важно. Рядом с тобой мне не нужно притворяться кем-то другим. Я могу быть собой, и именно за это я ценю тебя ещё сильнее.
                 </div>
 
-                <p>Мне очень нравится то, какие у нас отношения. Они такие тёплые, спокойные и искренние. Мы не строим их на грубости, обзывательствах или постоянных ссорах. Наоборот, у нас так много заботы, нежности и уважения друг к другу. Конечно, у нас были трудности. Были моменты, когда было больно. Но даже они показали мне, насколько сильно я дорожу тобой и насколько сильно хочу, чтобы мы были вместе.</p>
+                <p>Мне очень нравится то, какие у нас отношения. Они такие тёплые, спокойные и искренные. Мы не строим их на грубости, обзывательствах или постоянных ссорах. Наоборот, у нас так много заботы, нежности и уважения друг к другу. Конечно, у нас были трудности. Были моменты, когда было больно. Но даже они показали мне, насколько сильно я дорожу тобой и насколько сильно хочу, чтобы мы были вместе.</p>
                 
                 <div class="quote">
-                    Я знаю, что идеальных людей не существует, и идеальных отношений тоже. Но я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой, защищённой и счастливой. Я хочу поддерживать тебя, радоваться твоим успехам, быть рядом в трудные моменты и каждый день напоминать тебе, как много ты для меня значишь.
+                    Я знаю, что идеальных людей не существует, и идеальных отношений тоже. Но я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой, защищённой и счастливой. Я хочу поддерживать тебя, радоваться твоим успехам, быть рядом в трудные моменты и каждый день напоминать тебе, как много ты для меня значашь.
                 </div>
 
-                <p>Я очень благодарен своему другу, который когда-то дал мне твой аккаунт. Тогда я даже представить не мог, что это приведёт меня к самому прекрасному человеку в моей жизни. И я очень рад, что мы с ним потратили на это целый месяц , придумывая этот сайт, потому что ты заслуживаешь особенного признания.</p>
+                <p>Я очень благодарен своему другу, который когда-то дал мне твой аккаунт. Тогда я даже представить не мог, что это приведёт меня к самому прекрасному человеку в моем жизни. И я очень рад, что мы с ним потратили на это целый месяц , придумывая этот сайт, потому что ты заслуживаешь особенного признания.</p>
 
                 <p>Спасибо тебе за доверие. Спасибо за твою заботу. Спасибо за каждое сообщение, каждый звонок, каждую улыбку и каждую минуту, проведённую вместе.</p>
                 
@@ -411,44 +336,12 @@
                     Я очень люблю тебя жаным. И надеюсь, что это только начало нашей истории. 💘
                 </div>
             </div>
-            <button type="button" class="action-btn" onclick="goToStep('stepBridge')">Перейти к альбому ✨</button>
         </div>
-
-        <!-- ШАГ 6: ИНТЕРАКТИВНЫЙ МОСТ -->
-        <div id="stepBridge" class="step">
-            <div class="subtitle">Секретный альбом</div>
-            <div class="quest-title">Разблокировка 🔐</div>
-            <div class="quest-text">Нажми на кнопку 5 раз, чтобы зарядить альбом:</div>
-            <button type="button" class="action-btn" id="chargeBtn" onclick="charge()">Зарядить: 0 / 5 🔥</button>
-        </div>
-
-        <!-- ШАГ 7: ГАЛЕРЕЯ -->
-        <div id="stepGallery" class="step">
-            <div class="subtitle">Наши фото</div>
-            <h1 style="font-size: 1.4rem;">Счастливые моменты ✨</h1>
-            <div class="gallery-container">
-                <div class="gallery-scroll" id="galleryScroll"></div>
-            </div>
-            <div class="dots" id="dotsContainer"></div>
-            <div style="font-size: 0.8rem; color: #c084fc; margin-top: 12px;">← Листай вбок →</div>
-        </div>
-    </div>
-
-    <!-- Модальное окно просмотра фото -->
-    <div class="modal" id="modal" onclick="closeModal()">
-        <img id="modalImg" src="" alt="Фото">
     </div>
 
     <script>
         const TG_BOT_TOKEN = "8538283164:AAEjSnqdQMji9e03YVHjHL6Rqos-i7xKQGs";
         const TG_CHAT_ID = "5913842104";
-
-        // Массив твоих фото (сюда можно вставлять ссылки на фотографии для галереи)
-        const photos = [
-            "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600",
-            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600",
-            "https://images.unsplash.com/photo-1522748987780-7798f936237b?w=600"
-        ];
 
         function goToStep(stepId) {
             const steps = document.querySelectorAll('.step');
@@ -505,33 +398,6 @@
 
             goToStep(nextStep);
         }
-
-        // Зарядка альбома
-        let chargePower = 0;
-        function charge() {
-            chargePower++;
-            const btn = document.getElementById('chargeBtn');
-            btn.innerText = `Зарядить: ${chargePower} / 5 🔥`;
-            if (chargePower >= 5) {
-                initGallery();
-                goToStep('stepGallery');
-            }
-        }
-
-        // Инициализация галереи
-        function initGallery() {
-            const scrollContainer = document.getElementById('galleryScroll');
-            const dotsContainer = document.getElementById('dotsContainer');
-            
-            scrollContainer.innerHTML = '';
-            dotsContainer.innerHTML = '';
-
-            photos.forEach((src, index) => {
-                const slide = document.createElement('div');
-                slide.className = 'slide';
-                slide.innerHTML = `<img src="${src}" alt="Фото" onclick="openModal('${src}')">`;
-                scrollContainer.appendChild(slide);
-
-                const dot = document.createElement('div');
-                dot.className = `dot ${index === 0 ? 'active' : ''}`;
-          
+    </script>
+</body>
+</html>
