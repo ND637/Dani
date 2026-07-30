@@ -8,17 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ELMRT7GN1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-7ELMRT7GN1');
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -40,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* Главная карточка */
         .card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(16px);
@@ -72,7 +61,6 @@
             line-height: 1.3;
         }
 
-        /* ИЗОЛИРОВАННЫЙ БЛОК КНОПОК */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -101,14 +89,8 @@
             box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
             z-index: 10;
             position: relative;
-            transition: transform 0.15s ease;
         }
 
-        .btn-yes:active {
-            transform: scale(0.95);
-        }
-
-        /* Контейнер-фиксатор для кнопки "Нет" */
         .no-wrapper {
             position: relative;
             width: 90px;
@@ -131,7 +113,6 @@
             transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* Экранные блоки */
         .step {
             display: none;
         }
@@ -141,7 +122,6 @@
             animation: fadeIn 0.4s ease;
         }
 
-        /* Квесты */
         .quest-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -172,15 +152,8 @@
             font-weight: 500;
             text-align: left;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
-        .opt-btn:active {
-            background: rgba(236, 72, 153, 0.3);
-            border-color: #ec4899;
-        }
-
-        /* Текстовые поля для ответа */
         .answer-textarea {
             width: 100%;
             height: 110px;
@@ -196,12 +169,6 @@
             outline: none;
         }
 
-        .answer-textarea:focus {
-            border-color: #ec4899;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
-        }
-
-        /* Сердечки */
         .hearts-grid {
             display: flex;
             justify-content: center;
@@ -212,15 +179,9 @@
         .heart-item {
             font-size: 2rem;
             cursor: pointer;
-            transition: transform 0.2s;
             user-select: none;
         }
 
-        .heart-item:active {
-            transform: scale(1.3);
-        }
-
-        /* Письмо */
         .letter-box {
             text-align: left;
             background: rgba(0, 0, 0, 0.25);
@@ -263,81 +224,6 @@
             box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
         }
 
-        /* Галерея */
-        .gallery-container {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .gallery-scroll {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
-
-        .gallery-scroll::-webkit-scrollbar { display: none; }
-
-        .slide {
-            flex: 0 0 100%;
-            height: 360px;
-            scroll-snap-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-        }
-
-        .slide img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-
-        .dots {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 14px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            background: #ec4899;
-            width: 20px;
-            border-radius: 10px;
-        }
-
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-        }
-
-        .modal img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 12px;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -347,7 +233,6 @@
 <body>
 
     <div class="card">
-        
         <!-- ШАГ 0: ГЛАВНЫЙ ВОПРОС -->
         <div id="step0" class="step active">
             <div class="subtitle">ПРИЗНАНИЕ</div>
@@ -412,106 +297,38 @@
                 <div class="quote">
                     Если ты сейчас читаешь это, значит ты сказала мне самое важное слово — «да». 💘
                 </div>
-
                 <p>Честно… я даже не знаю, как описать всё, что чувствую сейчас. Кажется, сердце вот-вот выпрыгнет из груди. Я так долго представлял этот момент, так переживал, так надеялся, что именно сейчас ты читаешь эти строки уже как моя девушка.</p>
-                
                 <div class="quote">
                     22 января 2026 года я просто написал тебе первым. Одно сообщение, которое изменило очень многое в моей жизни.
                 </div>
-
-                <p>Если бы мне в тот день сказали, что спустя несколько месяцев ты станешь моей девушкой, я бы, наверное, просто не поверил.</p>
-                <p>Мы так быстро стали близкими. Всего за пару месяцев мы уже говорили о любви, открывались друг другу, рассказывали то, что не рассказывали другим.</p>
-                
+                <p>Я полюбил в тебе абсолютно всё. Твою доброту, твои звонки, твой смех и твоё спокойствие. Рядом с тобой мне не нужно притворяться.</p>
                 <div class="quote">
-                    С каждым днём я понимал, что ты становишься для меня всё важнее.
-                </div>
-
-                <p>Я полюбил в тебе абсолютно всё. Твою доброту, которая чувствуется в каждом слове. Твой смех и твои крики во время игр в звонке, которые всегда заставляют меня улыбаться. Твои красивые глаза, в которые хочется смотреть бесконечно. Твои губы, твою улыбку, твоё спокойствие. Мне безумно нравится, как ты умеешь поддерживать меня, понимать даже тогда, когда мне самому трудно объяснить свои чувства.</p>
-                
-                <div class="quote">
-                    Спасибо тебе за то, что принимаешь меня таким, какой я есть.
-                </div>
-
-                <p>Для меня это невероятно важно. Рядом с тобой мне не нужно притворяться кем-то другим. Я могу быть собой, и именно за это я ценю тебя ещё сильнее.</p>
-                <p>Мне очень нравится то, какие у нас отношения. Они такие тёплые, спокойные и искренние. Мы не строим их на грубости, обзывательствах или постоянных ссорах. Наоборот, у нас так много заботы, нежности и уважения друг к другу. Конечно, у нас были трудности. Были моменты, когда было больно. Но даже они показали мне, насколько сильно я дорожу тобой и насколько сильно хочу, чтобы мы были вместе.</p>
-                
-                <div class="quote">
-                    Но я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой, защищённой и счастливой.
-                </div>
-
-                <p>Я хочу поддерживать тебя, радоваться твоим успехам, быть рядом в трудные моменты и каждый день напоминать тебе, как много ты для меня значишь.</p>
-                
-                <div class="quote">
-                    Я очень благодарен своему другу, который когда-то дал мне твой аккаунт. Тогда я даже представить не мог, что это приведёт меня к самому прекрасному человеку в моей жизни. И я очень рад, что мы с ним потратили на это целый месяц , придумывая этот сайт, потому что ты заслуживаешь особенного признания.
-                </div>
-
-                <p>Спасибо тебе за доверие. Спасибо за твою заботу. Спасибо за каждое сообщение, каждый звонок, каждую улыбку и каждую минуту, проведённую вместе.</p>
-                
-                <div class="quote">
-                    Теперь ты официально моя девушка. И, честно, это делает меня самым счастливым человеком.<br><br>
                     Я очень люблю тебя жаным. И надеюсь, что это только начало нашей истории. 💘
                 </div>
             </div>
-            <button type="button" class="action-btn" onclick="goToStep('stepBridge')">Перейти к альбому ✨</button>
         </div>
-
-        <!-- ШАГ 6: ИНТЕРАКТИВНЫЙ МОСТ -->
-        <div id="stepBridge" class="step">
-            <div class="subtitle">Секретный альбом</div>
-            <div class="quest-title">Разблокировка 🔐</div>
-            <div class="quest-text">Нажми на кнопку 5 раз, чтобы зарядить альбом:</div>
-            <button type="button" class="action-btn" id="chargeBtn" onclick="charge()">Зарядить: 0 / 5 🔥</button>
-        </div>
-
-        <!-- ШАГ 7: ГАЛЕРЕЯ -->
-        <div id="stepGallery" class="step">
-            <div class="subtitle">Наши фото</div>
-            <h1 style="font-size: 1.4rem;">Счастливые моменты ✨</h1>
-            <div class="gallery-container">
-                <div class="gallery-scroll" id="galleryScroll"></div>
-            </div>
-            <div class="dots" id="dotsContainer"></div>
-            <div style="font-size: 0.8rem; color: #c084fc; margin-top: 12px;">← Листай вбок →</div>
-        </div>
-
-    </div>
-
-    <!-- Модальное окно просмотра фото -->
-    <div class="modal" id="modal" onclick="closeModal()">
-        <img id="modalImg" src="" alt="Фото">
     </div>
 
     <script>
-        // TELEGRAM НАСТРОЙКИ
         const TG_BOT_TOKEN = "8538283164:AAEjSnqdQMji9e03YVHjHL6Rqos-i7xKQGs";
         const TG_CHAT_ID = "5913842104";
 
-        // Массив твоих фото (сюда можно вставить ссылки на фотографии для галереи)
-        const photos = [
-            "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600",
-            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600",
-            "https://images.unsplash.com/photo-1522748987780-7798f936237b?w=600"
-        ];
-
-        // Функция переключения экранов
         function goToStep(stepId) {
             const steps = document.querySelectorAll('.step');
             steps.forEach(s => s.classList.remove('active'));
-            
             const target = document.getElementById(stepId);
             if (target) {
                 target.classList.add('active');
             }
         }
 
-        // КНОПКА "ДА" (Переводит сразу на экран с письмом)
+        // Кнопка ДА открывает первый вопрос квеста
         document.getElementById('yesBtn').addEventListener('click', function() {
-            goToStep('stepLetter');
+            goToStep('step1');
         });
 
-        // КНОПКА "НЕТ" (Логика отпрыгивания)
+        // Кнопка НЕТ убегает
         const noBtn = document.getElementById('noBtn');
-
         function moveNoButton(e) {
             if (e) {
                 e.preventDefault();
@@ -526,12 +343,10 @@
         noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
         noBtn.addEventListener('click', moveNoButton);
 
-        // Ошибка в квестах
         function wrong() {
             alert("Неа, не угадала! Попробуй ещё раз 😉");
         }
 
-        // Отправка ответов в Telegram
         function submitAnswer(questionNum, nextStep) {
             const inputField = document.getElementById(`answer${questionNum}`);
             const answerText = inputField ? inputField.value.trim() : '';
@@ -553,3 +368,6 @@
 
             goToStep(nextStep);
         }
+    </script>
+</body>
+</html>
