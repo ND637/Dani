@@ -357,7 +357,7 @@
             <button type="button" class="action-btn" onclick="submitAnswer(2, 'stepCustom3')">Дальше ✨</button>
         </div>
 
-        <!-- ШАГ 5: СВОЙ ВОПРОС №3 (Новый) -->
+        <!-- ШАГ 5: СВОЙ ВОПРОС №3 -->
         <div id="stepCustom3" class="step">
             <div class="subtitle">Вопрос 5 из 5</div>
             <div class="quest-title">Сладкая булочка 🥐</div>
@@ -407,7 +407,7 @@
             <button type="button" class="action-btn" onclick="goToStep('stepPhotos')">Смотреть фотографии 📸</button>
         </div>
 
-        <!-- ШАГ 7: ВКЛАДКА С ФОТОГРАФИЯМИ (14 штук) -->
+        <!-- ШАГ 7: ФОТОГРАФИИ (14 штук) -->
         <div id="stepPhotos" class="step">
             <div class="subtitle">Альбом воспоминаний</div>
             <h1 style="font-size: 1.3rem; margin-bottom: 12px;">Наши фотографии (14) 📸</h1>
@@ -420,7 +420,7 @@
             <button type="button" class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepLetter')">← Назад к письму</button>
         </div>
 
-        <!-- ШАГ 8: ВКЛАДКА С ВИДЕО (6 штук) -->
+        <!-- ШАГ 8: ВИДЕО (6 штук) -->
         <div id="stepVideos" class="step">
             <div class="subtitle">Альбом воспоминаний</div>
             <h1 style="font-size: 1.3rem; margin-bottom: 12px;">Видео-липсинги (6) 🎬</h1>
@@ -452,7 +452,8 @@
         }
 
         // Кнопка ДА открывает первый вопрос квеста
-        document.getElementById('yesBtn').addEventListener('click', function() {
+        document.getElementById('yesBtn').addEventListener('click', function(e) {
+            e.preventDefault();
             goToStep('step1');
         });
 
@@ -518,4 +519,4 @@
             }
         }
 
-        // Автозаполнение в
+        // Автозаполнени
