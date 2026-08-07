@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Для тебя 💖</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ELMRT7GN1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -20,484 +18,147 @@
     </script>
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
             background: radial-gradient(circle at center, #881337 0%, #4c0519 50%, #1f020a 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center; 
+            padding: 16px; color: #ffffff; overflow-x: hidden; position: relative;
         }
 
-        /* АНИМАЦИЯ ЖИВОГО ФОНА С ЭМОДЗИ */
-        .bg-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
+        /* Живой фон */
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .emoji-float { position: absolute; font-size: 24px; animation: floatUp linear infinite; opacity: 0.4; user-select: none; }
+        @keyframes floatUp { from { transform: translateY(110vh) rotate(0deg); } to { transform: translateY(-10vh) rotate(360deg); } }
+
+        .card { 
+            background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px; padding: 32px 24px; width: 100%; max-width: 480px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); position: relative; z-index: 1;
         }
 
-        .emoji-float {
-            position: absolute;
-            font-size: 24px;
-            animation: floatUp linear infinite;
-            opacity: 0.4;
-            user-select: none;
-        }
+        .subtitle { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #f472b6; font-weight: 600; margin-bottom: 12px; }
+        h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 24px; color: #ffffff; line-height: 1.3; }
 
-        @keyframes floatUp {
-            from {
-                transform: translateY(110vh) rotate(0deg);
-            }
-            to {
-                transform: translateY(-10vh) rotate(360deg);
-            }
-        }
+        .btn-group { display: flex; justify-content: center; align-items: center; gap: 16px; min-height: 90px; margin-top: 10px; position: relative; }
+        .btn { padding: 14px 28px; font-size: 1rem; font-weight: 700; border: none; border-radius: 50px; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+        .btn-yes { background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); color: #ffffff; box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4); z-index: 10; }
+        .no-wrapper { position: relative; width: 90px; height: 48px; }
+        .btn-no { background: rgba(255, 255, 255, 0.12); color: #e9d5ff; border: 1px solid rgba(255, 255, 255, 0.2); position: absolute; width: 100%; height: 100%; transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-        .card {
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 32px 24px;
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            position: relative;
-            z-index: 1;
-        }
+        .step { display: none; } .step.active { display: block; animation: fadeIn 0.4s ease; }
+        .quest-title { font-size: 1.2rem; font-weight: 700; color: #f472b6; margin-bottom: 10px; }
+        .quest-text { font-size: 0.95rem; color: #e9d5ff; line-height: 1.5; margin-bottom: 20px; }
+        .opt-btn { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff; padding: 14px 18px; border-radius: 16px; width: 100%; margin-bottom: 10px; cursor: pointer; }
+        .answer-textarea { width: 100%; height: 110px; padding: 14px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.25); color: #ffffff; margin-bottom: 20px; resize: none; }
+        
+        /* Стили для дорогой галереи */
+        .content-scroll-area { max-height: 55vh; overflow-y: auto; padding-right: 4px; margin-bottom: 16px; text-align: left; }
+        .photos-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; grid-auto-flow: dense; gap: 10px; margin-bottom: 20px; }
+        .photo-card { border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.4s; }
+        .photo-card:nth-child(3n) { grid-row: span 2; }
+        .photo-card img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-card:hover { transform: scale(1.03); }
 
-        .subtitle {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #f472b6;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
+        .videos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .video-card { aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); }
+        .video-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        h1 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #ffffff;
-            line-height: 1.3;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            min-height: 90px;
-            margin-top: 10px;
-            position: relative;
-        }
-
-        .btn {
-            padding: 14px 28px;
-            font-size: 1rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            user-select: none;
-            touch-action: manipulation;
-        }
-
-        .btn-yes {
-            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
-            z-index: 10;
-            position: relative;
-        }
-
-        .no-wrapper {
-            position: relative;
-            width: 90px;
-            height: 48px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn-no {
-            background: rgba(255, 255, 255, 0.12);
-            color: #e9d5ff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 5;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .step {
-            display: none;
-        }
-
-        .step.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .quest-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #f472b6;
-            margin-bottom: 10px;
-        }
-
-        .quest-text {
-            font-size: 0.95rem;
-            color: #e9d5ff;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .opt-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            padding: 14px 18px;
-            border-radius: 16px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .answer-textarea {
-            width: 100%;
-            height: 110px;
-            padding: 14px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.25);
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            resize: none;
-            outline: none;
-        }
-
-        .hearts-grid {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 24px 0;
-        }
-
-        .heart-item {
-            font-size: 2rem;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .letter-box {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            max-height: 50vh;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #f3e8ff;
-        }
-
-        .letter-box p {
-            margin-bottom: 14px;
-        }
-
-        .quote {
-            border-left: 3px solid #ec4899;
-            padding: 12px 14px;
-            margin: 16px 0;
-            color: #ffffff;
-            font-weight: 600;
-            background: rgba(236, 72, 153, 0.15);
-            border-radius: 0 12px 12px 0;
-            line-height: 1.5;
-        }
-
-        .action-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-            color: #ffffff;
-            padding: 16px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
-            margin-top: 10px;
-        }
-
-        .content-scroll-area {
-            max-height: 55vh;
-            overflow-y: auto;
-            padding-right: 4px;
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .content-scroll-area::-webkit-scrollbar {
-            width: 4px;
-        }
-        .content-scroll-area::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-
-        .photos-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .photo-card {
-            aspect-ratio: 3/4;
-            border-radius: 12px;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .video-card {
-            aspect-ratio: 9/16;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .video-card video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .qr-image-wrapper {
-            width: 100%;
-            max-width: 220px;
-            margin: 0 auto 20px auto;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
-        }
-
-        .qr-image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .letter-box { text-align: left; background: rgba(0, 0, 0, 0.25); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; max-height: 50vh; overflow-y: auto; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.7; color: #f3e8ff; }
+        .quote { border-left: 3px solid #ec4899; padding: 12px 14px; margin: 16px 0; color: #ffffff; font-weight: 600; background: rgba(236, 72, 153, 0.15); }
+        .action-btn { width: 100%; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); color: #ffffff; padding: 16px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .qr-image-wrapper { width: 100%; max-width: 220px; margin: 0 auto 20px auto; border-radius: 16px; overflow: hidden; border: 3px solid rgba(255, 255, 255, 0.8); }
+        .qr-image-wrapper img { width: 100%; display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <!-- ЖИВОЙ ФОН -->
     <div class="bg-layer" id="bgLayer"></div>
 
     <div class="card">
-        <!-- ШАГ 0: ГЛАВНЫЙ ВОПРОС -->
+        <!-- Шаг 0 -->
         <div id="step0" class="step active">
             <div class="subtitle">ПРИЗНАНИЕ</div>
             <h1>Будешь моей девушкой? ✨</h1>
             <div class="btn-group">
                 <button type="button" class="btn btn-yes" id="yesBtn">Да 💖</button>
-                <div class="no-wrapper">
-                    <button type="button" class="btn btn-no" id="noBtn">Нет</button>
-                </div>
+                <div class="no-wrapper"><button type="button" class="btn btn-no" id="noBtn">Нет</button></div>
             </div>
         </div>
 
-        <!-- ШАГ 1: КВЕСТ (ДАТА) -->
+        <!-- Шаги Квеста (1-4) -->
         <div id="step1" class="step">
             <div class="subtitle">Вопрос 1 из 4</div>
             <div class="quest-title">Наша дата 🗓️</div>
-            <div class="quest-text">Помнишь день, когда я впервые написал тебе?</div>
-            <div class="options">
-                <button type="button" class="opt-btn" onclick="wrong()">14 февраля 2026</button>
-                <button type="button" class="opt-btn" onclick="goToStep('step2')">22 января 2026 💖</button>
-                <button type="button" class="opt-btn" onclick="wrong()">8 марта 2026</button>
-            </div>
+            <button class="opt-btn" onclick="wrong()">14 февраля 2026</button>
+            <button class="opt-btn" onclick="goToStep('step2')">22 января 2026 💖</button>
+            <button class="opt-btn" onclick="wrong()">8 марта 2026</button>
         </div>
 
-        <!-- ШАГ 2: КВЕСТ (СЕРДЕЧКИ) -->
         <div id="step2" class="step">
             <div class="subtitle">Вопрос 2 из 4</div>
-            <div class="quest-title">Какое сердечко мне нравится больше всего? 💗</div>
-            <div class="quest-text">Выбери правильно:</div>
-            <div class="hearts-grid">
-                <span class="heart-item" onclick="wrong()">💗</span>
-                <span class="heart-item" onclick="wrong()">💞</span>
-                <span class="heart-item" onclick="goToStep('stepCustom1')">💘</span>
-                <span class="heart-item" onclick="wrong()">💓</span>
-                <span class="heart-item" onclick="wrong()">💕</span>
+            <div class="quest-title">Какое сердечко мне нравится? 💗</div>
+            <div class="btn-group" style="gap:10px;">
+                <span style="font-size: 2rem; cursor: pointer;" onclick="wrong()">💗</span>
+                <span style="font-size: 2rem; cursor: pointer;" onclick="wrong()">💞</span>
+                <span style="font-size: 2rem; cursor: pointer;" onclick="goToStep('stepCustom1')">💘</span>
+                <span style="font-size: 2rem; cursor: pointer;" onclick="wrong()">💓</span>
             </div>
         </div>
 
-        <!-- ШАГ 3: СВОЙ ВОПРОС №1 -->
         <div id="stepCustom1" class="step">
             <div class="subtitle">Вопрос 3 из 4</div>
-            <div class="quest-title">Мысль на память 💭</div>
-            <div class="quest-text">Если бы тебе нужно было оставить мне всего одно предложение на память, что бы ты написала?</div>
+            <div class="quest-text">Если бы тебе нужно было оставить мне одно предложение на память, что бы ты написала?</div>
             <textarea id="answer1" class="answer-textarea" placeholder="Твой ответ..."></textarea>
-            <button type="button" class="action-btn" onclick="submitAnswer(1, 'stepCustom2')">Отправить и дальше ✨</button>
+            <button class="action-btn" onclick="submitAnswer(1, 'stepCustom2')">Отправить ✨</button>
         </div>
 
-        <!-- ШАГ 4: СВОЙ ВОПРОС №2 -->
         <div id="stepCustom2" class="step">
             <div class="subtitle">Вопрос 4 из 4</div>
-            <div class="quest-title">Судьба 💭</div>
             <div class="quest-text">Как думаешь, почему именно ты стала моей девушкой?</div>
             <textarea id="answer2" class="answer-textarea" placeholder="Твой ответ..."></textarea>
-            <button type="button" class="action-btn" onclick="submitAnswer(2, 'stepLetter')">Завершить и открыть письмо 💌</button>
+            <button class="action-btn" onclick="submitAnswer(2, 'stepLetter')">Открыть письмо 💌</button>
         </div>
 
-        <!-- ШАГ 5: ПИСЬМО -->
+        <!-- Письмо -->
         <div id="stepLetter" class="step">
-            <div class="subtitle">ПРИЗНАНИЕ</div>
             <h1 style="font-size: 1.4rem;">Моему любимому человеку 💌</h1>
             <div class="letter-box">
-                <div class="quote">
-                    Если ты сейчас читаешь это, значит ты сказала мне самое важное слово — «да». 💘
-                </div>
-
-                <p>Честно… я даже не знаю, как описать всё, что чувствую сейчас. Кажется, сердце вот-вот выпрыгнет из груди. Я так долго представлял этот момент, так переживал, так надеялся, что именно сейчас ты читаешь эти строки уже как моя девушка.</p>
-                
-                <div class="quote">
-                    Помнишь 22 января 2026 года? Тогда я просто написал тебе первым. Если бы мне в тот день сказали, что спустя несколько месяцев ты станешь моей девушкой, я бы, наверное, просто не поверил. Но одно сообщение изменило очень многое в моей жизни.
-                </div>
-
-                <p>Мы так быстро стали близкими. Всего за пару месяцев мы уже говорили о любви, открывались друг другу, рассказывали то, что не рассказывали другим. С каждым днём я понимал, что ты становишься для меня всё важнее.</p>
-
-                <p>Я полюбил в тебе абсолютно всё. Твою доброту, которая чувствуется в каждом слове. Твой смех и твои крики во время игр в звонке, которые всегда заставляют меня улыбаться. Твои красивые глаза, в которые хочется смотреть бесконечно. Твои губы, твою улыбку, твоё спокойствие. Мне безумно нравится, как ты умеешь поддерживать меня, понимать даже тогда, когда мне самому трудно объяснить свои чувства.</p>
-                
-                <div class="quote">
-                    Спасибо тебе за то, что принимаешь меня таким, какой я есть. Для меня это невероятно важно. Рядом с тобой мне не нужно притворяться кем-то другим. Я могу быть собой, и именно за это я ценю тебя ещё сильнее.
-                </div>
-
-                <p>Мне очень нравится то, какие у нас отношения. Они такие тёплые, спокойные и искренние. Мы не строим их на грубости, обзывательствах или постоянных ссорах. Наоборот, у нас так много заботы, нежности и уважения друг к другу. Конечно, у нас были трудности. Были моменты, когда было больно. Но даже они показали мне, насколько сильно я дорожу тобой и насколько сильно хочу, чтобы мы были вместе.</p>
-                
-                <div class="quote">
-                    Я знаю, что идеальных людей не существует, и идеальных отношений тоже. Но я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой, защищённой и счастливой. Я хочу поддерживать тебя, радоваться твоим успехам, быть рядом в трудные моменты и каждый день напоминать тебе, как много ты для меня значишь.
-                </div>
-
-                <p>Я очень благодарен своему другу, который когда-то дал мне твой аккаунт. Тогда я даже представить не мог, что это приведёт меня к самому прекрасному человеку в моей жизни. И я очень рад, что мы с ним потратили на это целый месяц , придумывая этот сайт, потому что ты заслуживаешь особенного признания.</p>
-
-                <p>Спасибо тебе за доверие. Спасибо за твою заботу. Спасибо за каждое сообщение, каждый звонок, каждую улыбку и каждую минуту, проведённую вместе.</p>
-                
-                <div class="quote">
-                    Теперь ты официально моя девушка. И, честно, это делает меня самым счастливым человеком.<br><br>
-                    Я очень люблю тебя жаным. И надеюсь, что это только начало нашей истории. 💘
-                </div>
+                <div class="quote">Если ты сейчас читаешь это, значит ты сказала мне самое важное слово — «да». 💘</div>
+                <p>Честно… я даже не знаю, как описать всё, что чувствую сейчас. Кажется, сердце вот-вот выпрыгнет из груди.</p>
+                <div class="quote">Помнишь 22 января 2026 года? Одно сообщение изменило очень многое в моей жизни.</div>
+                <p>Я полюбил в тебе абсолютно всё. Твою доброту, твой смех, твои красивые глаза. Спасибо тебе за то, что принимаешь меня таким, какой я есть.</p>
+                <div class="quote">Я обещаю всегда стараться быть для тебя человеком, рядом с которым ты будешь чувствовать себя любимой.</div>
+                <p>Очень люблю тебя, жаным. И надеюсь, что это только начало нашей истории. 💘</p>
             </div>
-            <button type="button" class="action-btn" onclick="goToStep('stepPhotos')">Смотреть фотографии 📸</button>
+            <button class="action-btn" onclick="goToStep('stepPhotos')">Смотреть фотографии 📸</button>
         </div>
 
-        <!-- ШАГ 6: ТОЛЬКО ФОТОГРАФИИ (14 штук) -->
+        <!-- Галерея -->
         <div id="stepPhotos" class="step">
-            <div class="subtitle">Альбом воспоминаний</div>
-            <h1 style="font-size: 1.3rem; margin-bottom: 12px;">Наши фотографии (14) 📸</h1>
-            
-            <div class="content-scroll-area">
-                <div class="photos-grid" id="photosGrid"></div>
-            </div>
-
-            <button type="button" class="action-btn" onclick="goToStep('stepVideos')">Смотреть видео-липсинги →</button>
-            <button type="button" class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepLetter')">← Назад к письму</button>
+            <h1 style="font-size: 1.3rem;">Наши моменты (30) ✨</h1>
+            <div class="content-scroll-area"><div class="photos-grid" id="photosGrid"></div></div>
+            <button class="action-btn" onclick="goToStep('stepVideos')">Смотреть видео-липсинги →</button>
         </div>
 
-        <!-- ШАГ 7: ТОЛЬКО ВИДЕО-ЛИПСИНГИ (6 штук) -->
         <div id="stepVideos" class="step">
-            <div class="subtitle">Альбом воспоминаний</div>
-            <h1 style="font-size: 1.3rem; margin-bottom: 12px;">Видео-липсинги (6) 🎬</h1>
-            
-            <div class="content-scroll-area">
-                <div class="videos-grid" id="videosGrid"></div>
-            </div>
-
-            <button type="button" class="action-btn" onclick="goToStep('stepQR')">Особенное послание 🎁 →</button>
-            <button type="button" class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepPhotos')">← Назад к фото</button>
+            <h1 style="font-size: 1.3rem;">Видео-липсинги 🎬</h1>
+            <div class="content-scroll-area"><div class="videos-grid" id="videosGrid"></div></div>
+            <button class="action-btn" onclick="goToStep('stepQR')">Особенное послание 🎁 →</button>
         </div>
 
-        <!-- ШАГ 8: QR-КОД И ПОСЛАНИЕ -->
+        <!-- Финал -->
         <div id="stepQR" class="step">
-            <div class="subtitle">08.08 // Наш день</div>
-            <h1 style="font-size: 1.3rem; margin-bottom: 12px;">Это тебе! 🎁</h1>
-            
-            <div class="qr-image-wrapper">
-                <img src="1000135716.jpg" alt="Открытка" onerror="this.onerror=null; this.src='photo1.jpg';">
-            </div>
-
+            <h1 style="font-size: 1.3rem;">Это тебе! 🎁</h1>
+            <div class="qr-image-wrapper"><img src="1000135716.jpg" alt="Открытка" onerror="this.style.display='none'"></div>
             <div class="letter-box">
                 <p>Жаным, если ты читаешь этот текст, значит сегодня, 08.08, для нас началась ещё одна особенная глава. 💘</p>
-                <p>Мне очень хотелось оставить тебе маленькое напоминание об этом дне. Не потому что эта вещь дорогая, а потому что для меня она стала символом того, с чего начинается наша история.</p>
-                <p>Но знаешь… это всё равно просто мелочь. Ты заслуживаешь намного большего. И я очень надеюсь, что однажды смогу подарить тебе гораздо больше, чем маленькие сюрпризы. Больше счастливых моментов, больше улыбок, больше поводов чувствовать себя любимой.</p>
-                <div class="quote">
-                    Жаным, ты стала для меня тем человеком, рядом с которым наконец становится спокойно. Ты знаешь, какой я тревожный, но рядом с тобой мои мысли затихают. Ты стала моим спокойствием, моей поддержкой и человеком, которым я очень сильно дорожу.
-                </div>
-                <p>Поэтому представь, что вместе с этой маленькой вещью я отдаю тебе частичку своего сердца. 💘 Береги её так же, как моё сердце будет беречь тебя.</p>
-                <p>Я обещаю, что буду стараться делать тебя счастливой каждый день, потому что такая милая, добрая и невероятная девушка, как ты, заслуживает самого лучшего.</p>
-                <div class="quote">
-                    Очень сильно люблю тебя, жаным. Спасибо, что теперь именно ты — моя любимая. 💗
-                </div>
+                <div class="quote">Жаным, ты стала тем человеком, рядом с которым наконец становится спокойно.</div>
+                <p>Представь, что вместе с этой маленькой вещью я отдаю тебе частичку своего сердца. 💘 Береги её так же, как моё сердце будет беречь тебя.</p>
+                <div class="quote">Очень сильно люблю тебя, жаным. Спасибо, что теперь именно ты — моя любимая. 💗</div>
             </div>
-
-            <button type="button" class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepVideos')">← Назад к видео</button>
+            <button class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepVideos')">← Назад к видео</button>
         </div>
     </div>
 
@@ -505,111 +166,63 @@
         const TG_BOT_TOKEN = "8538283164:AAEjSnqdQMji9e03YVHjHL6Rqos-i7xKQGs";
         const TG_CHAT_ID = "5913842104";
 
-        // Генерация живого фона эмодзи
-        const emojis = ['👾', '💘', '🎈', '💋', '🦁'];
-        function createFloatingEmoji() {
-            const container = document.getElementById('bgLayer');
-            const emoji = document.createElement('div');
-            emoji.className = 'emoji-float';
-            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + 'vw';
-            emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            container.appendChild(emoji);
+        // Живой фон
+        setInterval(() => {
+            const e = document.createElement('div');
+            e.className = 'emoji-float';
+            e.innerText = ['👾','💘','🎈','💋','🦁'][Math.floor(Math.random()*5)];
+            e.style.left = Math.random()*100 + 'vw';
+            e.style.animationDuration = (Math.random()*5+5) + 's';
+            document.getElementById('bgLayer').appendChild(e);
+            setTimeout(() => e.remove(), 10000);
+        }, 700);
 
-            setTimeout(() => {
-                emoji.remove();
-            }, 10000);
-        }
-        setInterval(createFloatingEmoji, 700);
-
-        function goToStep(stepId) {
-            const steps = document.querySelectorAll('.step');
-            steps.forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(stepId);
-            if (target) {
-                target.classList.add('active');
-                if (stepId === 'stepPhotos') {
-                    initPhotos();
-                } else if (stepId === 'stepVideos') {
-                    initVideos();
-                }
-            }
+        function goToStep(s) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById(s).classList.add('active');
+            if(s === 'stepPhotos') initPhotos();
+            if(s === 'stepVideos') initVideos();
         }
 
-        // Кнопка ДА открывает первый вопрос квеста
-        document.getElementById('yesBtn').addEventListener('click', function() {
-            goToStep('step1');
-        });
-
-        // Кнопка НЕТ убегает
+        document.getElementById('yesBtn').onclick = () => goToStep('step1');
         const noBtn = document.getElementById('noBtn');
-        function moveNoButton(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            const randomX = (Math.random() - 0.5) * 200;
-            const randomY = (Math.random() - 0.5) * 120;
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
+        const move = (e) => {
+            if(e) e.preventDefault();
+            noBtn.style.transform = `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*120}px)`;
+        };
+        noBtn.onmouseover = noBtn.ontouchstart = move;
 
-        noBtn.addEventListener('mouseover', moveNoButton);
-        noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
-        noBtn.addEventListener('click', moveNoButton);
+        function wrong() { alert("Неа, не угадала! Попробуй ещё раз 😉"); }
 
-        function wrong() {
-            alert("Неа, не угадала! Попробуй ещё раз 😉");
-        }
-
-        function submitAnswer(questionNum, nextStep) {
-            const inputField = document.getElementById(`answer${questionNum}`);
-            const answerText = inputField ? inputField.value.trim() : '';
-
-            if (!answerText) {
-                alert("Напиши хоть пару слов 😉");
-                return;
-            }
-
+        function submitAnswer(n, next) {
+            const val = document.getElementById(`answer${n}`).value.trim();
+            if(!val) return alert("Напиши хоть пару слов 😉");
             fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TG_CHAT_ID,
-                    text: `💌 **Новый ответ от нее!**\n\n**Вопрос №${questionNum}:**\n"${answerText}"`,
-                    parse_mode: 'Markdown'
-                })
-            }).catch(err => console.error(err));
-
-            goToStep(nextStep);
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: TG_CHAT_ID, text: `💌 Ответ ${n}: ${val}`, parse_mode: 'Markdown'})
+            });
+            goToStep(next);
         }
 
-        // Рендер 14 фотографий
-        let photosInitialized = false;
+        let pInit = false;
         function initPhotos() {
-            if (photosInitialized) return;
-            photosInitialized = true;
-
-            const photosGrid = document.getElementById('photosGrid');
-            for (let i = 1; i <= 14; i++) {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                card.innerHTML = `<img src="photo${i}.jpg" alt="Фото ${i}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400';">`;
-                photosGrid.appendChild(card);
+            if(pInit) return; pInit = true;
+            const grid = document.getElementById('photosGrid');
+            for(let i=1; i<=30; i++) {
+                const d = document.createElement('div'); d.className = 'photo-card';
+                d.innerHTML = `<img src="photo${i}.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400';">`;
+                grid.appendChild(d);
             }
         }
 
-        // Рендер 6 видео-липсингов
-        let videosInitialized = false;
+        let vInit = false;
         function initVideos() {
-            if (videosInitialized) return;
-            videosInitialized = true;
-
-            const videosGrid = document.getElementById('videosGrid');
-            for (let i = 1; i <= 6; i++) {
-                const card = document.createElement('div');
-                card.className = 'video-card';
-                card.innerHTML = `<video src="video${i}.mp4" controls preload="metadata"></video>`;
-                videosGrid.appendChild(card);
+            if(vInit) return; vInit = true;
+            const grid = document.getElementById('videosGrid');
+            for(let i=1; i<=6; i++) {
+                const d = document.createElement('div'); d.className = 'video-card';
+                d.innerHTML = `<video src="video${i}.mp4" controls></video>`;
+                grid.appendChild(d);
             }
         }
     </script>
