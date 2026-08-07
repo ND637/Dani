@@ -3,242 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Для тебя 💖</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ELMRT7GN1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-7ELMRT7GN1');
-    </script>
-
+    <title>Для моей любимой 💘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #ffe4e6, #fbcfe8, #fdf2f8);
+            background: radial-gradient(circle at center, #881337 0%, #4c0519 50%, #1f020a 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
-            color: #881337;
-            overflow: hidden; /* Чтобы фон не вылезал */
+            padding: 20px;
+            color: #fff;
+            overflow: hidden;
         }
-
-        /* Живой фон */
-        .bg-animation {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .emoji-float {
-            position: absolute;
-            font-size: 24px;
-            animation: floatAnimation linear infinite;
-            opacity: 0.6;
-        }
-        @keyframes floatAnimation {
-            0% { transform: translateY(110vh) translateX(0); }
-            100% { transform: translateY(-10vh) translateX(50px); }
-        }
+        .bg-layer { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events: none; }
+        .emoji-float { position: absolute; font-size: 24px; animation: floatUp linear infinite; opacity: 0.5; }
+        @keyframes floatUp { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
 
         .card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 32px;
-            padding: 40px 28px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
             width: 100%;
-            max-width: 440px;
+            max-width: 450px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(219, 39, 119, 0.2);
-            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             z-index: 1;
+            position: relative;
         }
-
-        .subtitle { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #db2777; font-weight: 700; margin-bottom: 16px; }
-        h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 24px; color: #4c0519; line-height: 1.2; }
-
-        .btn-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 25px; min-height: 70px; }
-        .btn { padding: 14px 32px; font-size: 1rem; font-weight: 700; border: none; border-radius: 50px; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: transform 0.2s; }
-        .btn:active { transform: scale(0.95); }
-        
-        .btn-yes { background: linear-gradient(135deg, #f472b6, #e11d48); color: white; box-shadow: 0 10px 20px rgba(225, 29, 72, 0.3); }
-        .btn-no { background: rgba(255, 255, 255, 0.4); color: #9f1239; border: 1px solid rgba(255, 255, 255, 0.6); }
 
         .step { display: none; }
         .step.active { display: block; animation: fadeIn 0.5s ease; }
-
-        .quest-title { font-size: 1.2rem; font-weight: 700; color: #be185d; margin-bottom: 8px; }
-        .quest-text { font-size: 0.95rem; color: #881337; margin-bottom: 24px; opacity: 0.9; }
-
-        .opt-btn { width: 100%; background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 182, 193, 0.5); color: #881337; padding: 16px; border-radius: 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
-        .opt-btn:hover { background: rgba(255, 255, 255, 0.8); }
-
-        .answer-textarea { width: 100%; height: 100px; padding: 16px; border-radius: 20px; border: 1px solid rgba(255, 182, 193, 0.5); background: rgba(255, 255, 255, 0.4); color: #881337; font-family: 'Montserrat', sans-serif; margin-bottom: 20px; resize: none; }
-
-        .letter-box { text-align: left; background: rgba(255, 255, 255, 0.5); border-radius: 24px; padding: 20px; max-height: 45vh; overflow-y: auto; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; color: #4c0519; border: 1px solid rgba(255, 255, 255, 0.8); }
-        .quote { border-left: 4px solid #f472b6; padding-left: 15px; margin: 15px 0; font-weight: 600; color: #9f1239; background: rgba(244, 114, 182, 0.1); padding: 10px 15px; border-radius: 0 12px 12px 0; }
+        h1 { font-size: 1.8rem; margin-bottom: 20px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .btn { padding: 15px 40px; border-radius: 50px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-yes { background: #e11d48; color: white; box-shadow: 0 5px 15px rgba(225, 29, 72, 0.4); }
+        .btn-no { background: rgba(255,255,255,0.1); color: #ccc; }
         
-        .action-btn { width: 100%; background: linear-gradient(135deg, #f472b6, #db2777); color: white; padding: 16px; border: none; border-radius: 50px; font-weight: 700; margin-top: 10px; cursor: pointer; }
+        .textarea { width: 100%; height: 120px; background: rgba(255,255,255,0.05); border: 1px solid #e11d48; border-radius: 20px; padding: 15px; color: #fff; margin-bottom: 20px; resize: none; }
+        .action-btn { width: 100%; padding: 15px; border-radius: 20px; background: #e11d48; color: #fff; border: none; font-weight: 600; cursor: pointer; margin-top: 10px; }
         
-        .qr-image-wrapper { width: 100%; max-width: 220px; margin: 0 auto 20px auto; border-radius: 20px; overflow: hidden; border: 3px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .qr-image-wrapper img { width: 100%; display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .grid-photos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; max-height: 50vh; overflow-y: auto; }
+        .card-img { aspect-ratio: 3/4; border-radius: 15px; background: #333; overflow: hidden; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- Контейнер для живых эмодзи -->
-    <div class="bg-animation" id="bgAnimation"></div>
+    <div class="bg-layer" id="bg"></div>
 
     <div class="card">
+        <!-- Шаг 0 -->
         <div id="step0" class="step active">
-            <div class="subtitle">Признание</div>
-            <h1>Будешь моей девушкой? ✨</h1>
-            <div class="btn-container">
-                <button type="button" class="btn btn-yes" onclick="goToStep('step1')">Да 💖</button>
-                <button type="button" class="btn btn-no" id="noBtn">Нет</button>
-            </div>
+            <h1>Будешь моей девушкой? 💘</h1>
+            <button class="btn btn-yes" onclick="goToStep('step1')">Да ✨</button>
+            <button class="btn btn-no" id="noBtn">Нет</button>
         </div>
 
-        <!-- Оставшиеся шаги (структура сохранена) -->
+        <!-- Шаги ответов -->
         <div id="step1" class="step">
-            <div class="subtitle">Вопрос 1 из 5</div>
-            <div class="quest-title">Наша дата 🗓️</div>
-            <div class="options">
-                <button type="button" class="opt-btn" onclick="wrongAnswer()">14 февраля 2026</button>
-                <button type="button" class="opt-btn" onclick="goToStep('step2')">22 января 2026 💖</button>
-                <button type="button" class="opt-btn" onclick="wrongAnswer()">8 марта 2026</button>
-            </div>
+            <h1>Мысль на память 💭</h1>
+            <textarea id="answer1" class="textarea" placeholder="Напиши что-то приятное..."></textarea>
+            <button class="action-btn" onclick="submitAnswer(1, 'step2')">Отправить 💌</button>
         </div>
 
         <div id="step2" class="step">
-            <div class="subtitle">Вопрос 2 из 5</div>
-            <div class="quest-title">Какое сердечко мое? 💗</div>
-            <div class="btn-container" style="flex-wrap: wrap; gap: 15px;">
-                <span style="font-size: 2rem; cursor:pointer" onclick="wrongAnswer()">💗</span>
-                <span style="font-size: 2rem; cursor:pointer" onclick="wrongAnswer()">💞</span>
-                <span style="font-size: 2rem; cursor:pointer" onclick="goToStep('stepCustom1')">💘</span>
-                <span style="font-size: 2rem; cursor:pointer" onclick="wrongAnswer()">💓</span>
-            </div>
+            <h1>Почему ты моя булочка? 🥐</h1>
+            <textarea id="answer2" class="textarea" placeholder="Твой ответ..."></textarea>
+            <button class="action-btn" onclick="submitAnswer(2, 'stepPhotos')">Дальше 💘</button>
         </div>
 
-        <!-- Шаги ответов (Custom1-3) -->
-        <div id="stepCustom1" class="step">
-            <div class="subtitle">Вопрос 3 из 5</div>
-            <div class="quest-text">Если бы тебе нужно было оставить мне одно предложение на память?</div>
-            <textarea id="answer1" class="answer-textarea"></textarea>
-            <button class="action-btn" onclick="submitAnswer(1, 'stepCustom2')">Дальше ✨</button>
-        </div>
-        <div id="stepCustom2" class="step">
-            <div class="subtitle">Вопрос 4 из 5</div>
-            <div class="quest-text">Почему ты стала моей девушкой?</div>
-            <textarea id="answer2" class="answer-textarea"></textarea>
-            <button class="action-btn" onclick="submitAnswer(2, 'stepCustom3')">Дальше ✨</button>
-        </div>
-        <div id="stepCustom3" class="step">
-            <div class="subtitle">Вопрос 5 из 5</div>
-            <div class="quest-text">Почему ты согласилась быть моей сладкой булочкой?</div>
-            <textarea id="answer3" class="answer-textarea"></textarea>
-            <button class="action-btn" onclick="submitAnswer(3, 'stepLetter')">Завершить 💌</button>
-        </div>
-
-        <!-- Письмо -->
-        <div id="stepLetter" class="step">
-            <h1 style="font-size: 1.2rem;">Моему любимому человеку 💌</h1>
-            <div class="letter-box">
-                <p>Если ты читаешь это — ты сказала «да». Я так счастлив.</p>
-                <div class="quote">Помнишь 22 января? С того сообщения всё началось.</div>
-                <p>Ты стала для меня всем: поддержкой, радостью и самым близким другом. Люблю тебя жаным.</p>
-            </div>
-            <button class="action-btn" onclick="goToStep('stepPhotos')">Фотографии 📸</button>
-        </div>
-
-        <!-- Фото/Видео -->
+        <!-- Галерея -->
         <div id="stepPhotos" class="step">
-            <div class="subtitle">Воспоминания</div>
-            <h1 style="font-size: 1.2rem;">Наши моменты 📸</h1>
-            <div id="photosGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px"></div>
-            <button class="action-btn" onclick="goToStep('stepVideos')">Видео →</button>
+            <h1>Наши моменты 📸</h1>
+            <div id="gridP" class="grid-photos"></div>
+            <button class="action-btn" onclick="goToStep('stepVideos')">Смотреть видео 🎬</button>
         </div>
 
         <div id="stepVideos" class="step">
-            <div class="subtitle">Воспоминания</div>
-            <h1 style="font-size: 1.2rem;">Видео 🎬</h1>
-            <div id="videosGrid" style="display:grid; gap:10px; margin-bottom:15px"></div>
-            <button class="action-btn" onclick="goToStep('stepQR')">Подарок 🎁</button>
+            <h1>Наши видео 🎬</h1>
+            <div id="gridV" class="grid-photos"></div>
+            <button class="action-btn" onclick="goToStep('stepQR')">Твой подарок 🎁</button>
         </div>
 
         <!-- QR -->
         <div id="stepQR" class="step">
-            <div class="subtitle">08.08 // Наш день</div>
-            <div class="qr-image-wrapper"><img src="1000135716.jpg" alt="QR"></div>
-            <div class="letter-box" style="text-align:center">
-                <p>Жаным, это напоминание о том, как сильно я дорожу нашей историей.</p>
-            </div>
-            <button class="action-btn" onclick="goToStep('step0')">На начало ↩️</button>
+            <h1>Это тебе, жаным 🎁</h1>
+            <img src="1000135716.jpg" style="width:200px; border-radius:20px; margin: 20px 0;">
+            <p>Береги это, как я берегу тебя.</p>
         </div>
     </div>
 
     <script>
-        // Живой фон
-        function createEmoji() {
-            const container = document.getElementById('bgAnimation');
-            const emojis = ['👾', '💘', '🎈', '💋', '🦁'];
-            const emoji = document.createElement('div');
-            emoji.className = 'emoji-float';
-            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + 'vw';
-            emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            container.appendChild(emoji);
-            setTimeout(() => emoji.remove(), 10000);
+        // 5 Эмодзи
+        const emojis = ['👾', '💘', '🎈', '💋', '🦁'];
+        function spawn() {
+            const d = document.createElement('div');
+            d.className = 'emoji-float';
+            d.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+            d.style.left = Math.random()*100 + 'vw';
+            d.style.animationDuration = (Math.random()*5 + 5) + 's';
+            document.getElementById('bg').appendChild(d);
+            setTimeout(() => d.remove(), 10000);
         }
-        setInterval(createEmoji, 800);
+        setInterval(spawn, 700);
 
-        // Навигация
         function goToStep(id) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if (id === 'stepPhotos') initPhotos();
-            if (id === 'stepVideos') initVideos();
+            if(id === 'stepPhotos') renderPhotos();
+            if(id === 'stepVideos') renderVideos();
         }
 
-        // Убегающая кнопка
-        const noBtn = document.getElementById('noBtn');
-        noBtn.onmouseover = () => {
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = Math.random() * 80 + '%';
-            noBtn.style.top = Math.random() * 80 + '%';
-        }
-
-        function wrongAnswer() { alert("Не-а, попробуй еще раз! 😉"); }
-
-        function submitAnswer(num, next) { 
-            // Тут логика отправки (оставлена прежняя)
-            goToStep(next); 
-        }
-
-        function initPhotos() {
-            const grid = document.getElementById('photosGrid');
-            if(!grid.innerHTML) {
-                for(let i=1; i<=4; i++) grid.innerHTML += `<div style="aspect-ratio:3/4; border-radius:15px; background:white; border:1px solid #ffb6c1"></div>`;
+        // Логика проверки ответа
+        function submitAnswer(num, next) {
+            const val = document.getElementById('answer' + num).value.trim();
+            if (!val) {
+                alert("Жаным, напиши хоть слово! Без этого я не могу пропустить дальше 🥺");
+                return;
             }
+            // Тут fetch к боту...
+            goToStep(next);
         }
-        function initVideos() {
-            const grid = document.getElementById('videosGrid');
-            if(!grid.innerHTML) {
-                for(let i=1; i<=2; i++) grid.innerHTML += `<div style="aspect-ratio:16/9; border-radius:15px; background:black"></div>`;
-            }
+
+        function renderPhotos() {
+            const g = document.getElementById('gridP');
+            if(!g.innerHTML) for(let i=1; i<=14; i++) g.innerHTML += `<div class="card-img" style="background:#555"></div>`;
         }
+        
+        function renderVideos() {
+            const g = document.getElementById('gridV');
+            if(!g.innerHTML) for(let i=1; i<=6; i++) g.innerHTML += `<div class="card-img" style="background:#000"></div>`;
+        }
+
+        const no = document.getElementById('noBtn');
+        no.onmouseover = () => { no.style.position = 'fixed'; no.style.left = Math.random()*80 + 'vw'; no.style.top = Math.random()*80 + 'vh'; }
     </script>
 </body>
 </html>
