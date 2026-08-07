@@ -20,7 +20,6 @@
             overflow: hidden;
         }
 
-        /* Анимация фона */
         .bg-layer { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events: none; }
         .emoji { position: absolute; font-size: 24px; animation: floatUp linear infinite; opacity: 0.3; }
         @keyframes floatUp { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
@@ -32,7 +31,7 @@
             border-radius: 40px;
             padding: 40px;
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             text-align: center;
             box-shadow: 0 40px 80px rgba(0,0,0,0.6);
             z-index: 1;
@@ -47,12 +46,14 @@
         .btn { padding: 16px 40px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 1rem; margin: 5px; }
         .btn:active { transform: scale(0.92); }
         .btn-yes { background: var(--accent); color: white; box-shadow: 0 10px 20px rgba(225, 29, 72, 0.3); }
-        .btn-no { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-no { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); position: relative; }
 
         .textarea { width: 100%; height: 100px; background: rgba(0,0,0,0.2); border: 1px solid #f472b6; border-radius: 20px; padding: 15px; color: #fff; margin-bottom: 20px; resize: none; font-family: inherit; }
         
-        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; max-height: 350px; overflow-y: auto; }
-        .item { aspect-ratio: 1/1; border-radius: 15px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; max-height: 400px; overflow-y: auto; padding-right: 10px; }
+        .media-item { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); }
+        
+        .qr-text { font-size: 0.95rem; line-height: 1.7; color: #ffe4e6; text-align: left; padding: 20px; background: rgba(0,0,0,0.3); border-radius:25px; margin-top: 20px; font-style: italic; }
 
         .step { display: none; }
         .step.active { display: block; animation: fadeIn 0.5s ease; }
@@ -96,7 +97,7 @@
 
         <!-- Видео -->
         <div id="stepVideos" class="step">
-            <h1>Видео-липсинги 🎬</h1>
+            <h1>Наши видео 🎬</h1>
             <div id="gridV" class="gallery"></div>
             <button class="btn btn-yes" style="margin-top:20px" onclick="nextStep(100, 'stepQR')">Открыть подарок 🎁</button>
         </div>
@@ -105,8 +106,14 @@
         <div id="stepQR" class="step">
             <h1>Это для тебя, жаным 🎁</h1>
             <img src="1000135716.jpg" style="width:160px; border-radius:20px; border: 3px solid #fff; margin-bottom: 15px;">
-            <div style="font-size: 0.9rem; line-height: 1.5; color: #ffe4e6; text-align: left; padding: 10px; background: rgba(0,0,0,0.2); border-radius:15px;">
-                Жаным, 08.08 — наш день. Эта вещь лишь символ, но я дарю тебе частичку сердца. Будь моей всегда. 💘
+            <div class="qr-text">
+                Жаным, если ты читаешь этот текст, значит сегодня, 08.08, для нас началась ещё одна особенная глава. 💘<br><br>
+                Мне очень хотелось оставить тебе маленькое напоминание об этом дне. Не потому что эта вещь дорогая, а потому что для меня она стала символом того, с чего начинается наша история.<br><br>
+                Но знаешь… это всё равно просто мелочь. Ты заслуживаешь намного большего. И я очень надеюсь, что однажды смогу подарить тебе гораздо больше, чем маленькие сюрпризы. Больше счастливых моментов, больше улыбок, больше поводов чувствовать себя любимой.<br><br>
+                Жаным, ты стала для меня тем человеком, рядом с которым наконец становится спокойно. Ты знаешь, какой я тревожный, но рядом с тобой мои мысли затихают. Ты стала моим спокойствием, моей поддержкой и человеком, которым я очень сильно дорожу.<br><br>
+                Поэтому представь, что вместе с этой маленькой вещью я отдаю тебе частичку своего сердца. 💘 Береги её так же, как моё сердце будет беречь тебя.<br><br>
+                Я обещаю, что буду стараться делать тебя счастливой каждый день, потому что такая милая, добрая и невероятная девушка, как ты, заслуживает самого лучшего.<br><br>
+                Очень сильно люблю тебя, жаным. Спасибо, что теперь именно ты — моя любимая. 💗
             </div>
         </div>
     </div>
@@ -127,9 +134,11 @@
         // Кнопка Нет (Dodge)
         function dodge() {
             const b = document.getElementById('noBtn');
-            b.style.position = 'absolute';
-            b.style.left = Math.random() * 70 + 10 + '%';
-            b.style.top = Math.random() * 70 + 10 + '%';
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            b.style.position = 'fixed';
+            b.style.left = x + 'px';
+            b.style.top = y + 'px';
         }
 
         // Логика переходов
@@ -137,8 +146,8 @@
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById('prog').style.width = prog + '%';
-            if(id === 'stepPhotos') render('gridP', 14, 'Фото');
-            if(id === 'stepVideos') render('gridV', 6, 'Видео');
+            if(id === 'stepPhotos') renderPhotos();
+            if(id === 'stepVideos') renderVideos();
         }
 
         function checkAndNext(prog, id, areaId) {
@@ -149,10 +158,21 @@
             nextStep(prog, id);
         }
 
-        function render(id, c, t) {
-            const g = document.getElementById(id);
+        function renderPhotos() {
+            const g = document.getElementById('gridP');
             if(!g.innerHTML) {
-                for(let i=1; i<=c; i++) g.innerHTML += `<div class="item">${t} ${i}</div>`;
+                for(let i=1; i<=14; i++) {
+                    g.innerHTML += `<img src="photo${i}.jpg" class="media-item" onerror="this.style.display='none'">`;
+                }
+            }
+        }
+
+        function renderVideos() {
+            const g = document.getElementById('gridV');
+            if(!g.innerHTML) {
+                for(let i=1; i<=6; i++) {
+                    g.innerHTML += `<video src="video${i}.mp4" class="media-item" controls></video>`;
+                }
             }
         }
     </script>
