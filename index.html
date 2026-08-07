@@ -9,6 +9,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ELMRT7GN1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7ELMRT7GN1');
+    </script>
 
     <style>
         * {
@@ -261,6 +270,22 @@
             display: block;
         }
 
+        .qr-image-wrapper {
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto 20px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .qr-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -382,7 +407,36 @@
             <div class="content-scroll-area">
                 <div class="videos-grid" id="videosGrid"></div>
             </div>
-            <button type="button" class="action-btn" onclick="goToStep('stepPhotos')">← Назад к фото</button>
+            <button type="button" class="action-btn" onclick="goToStep('stepQR')">Особенное послание 🎁 →</button>
+            <button type="button" class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepPhotos')">← Назад к фото</button>
+        </div>
+
+        <!-- ШАГ 9: ОСОБЕННОЕ ПОСЛАНИЕ И QR-КОД -->
+        <div id="stepQR" class="step">
+            <div class="subtitle">08.08 // Наш особенный день</div>
+            <h1 style="font-size: 1.3rem; margin-bottom: 12px;">Это тебе! 🎁</h1>
+            
+            <div class="qr-image-wrapper">
+                <img src="qr.jpg" alt="Открытка с QR-кодом" onerror="this.onerror=null; this.src='1000135716.jpg';">
+            </div>
+
+            <div class="letter-box">
+                <div class="quote">
+                    Жаным, если ты читаешь этот текст, значит сегодня, 08.08, для нас началась ещё одна особенная глава. 💘
+                </div>
+                <p>Мне очень хотелось оставить тебе маленькое напоминание об этом дне. Не потому что эта вещь дорогая, а потому что для меня она стала символом того, с чего начинается наша история.</p>
+                <p>Но знаешь… это всё равно просто мелочь. Ты заслуживаешь намного большего. И я очень надеюсь, что однажды смогу подарить тебе гораздо больше, чем маленькие сюрпризы. Больше счастливых моментов, больше улыбок, больше поводов чувствовать себя любимой.</p>
+                <div class="quote">
+                    Жаным, ты стала для меня тем человеком, рядом с которым наконец становится спокойно. Ты знаешь, какой я тревожный, но рядом с тобой мои мысли затихают. Ты стала моим спокойствием, моей поддержкой и человеком, которым я очень сильно дорожу.
+                </div>
+                <p>Поэтому представь, что вместе с этой маленькой вещью я отдаю тебе частичку своего сердца. 💘 Береги её так же, как моё сердце будет беречь тебя.</p>
+                <p>Я обещаю, что буду стараться делать тебя счастливой каждый день, потому что такая милая, добрая и невероятная девушка, как ты, заслуживает самого лучшего.</p>
+                <div class="quote">
+                    Очень сильно люблю тебя, жаным. Спасибо, что теперь именно ты — моя любимая. 💗
+                </div>
+            </div>
+
+            <button type="button" class="action-btn" style="background: rgba(255,255,255,0.15);" onclick="goToStep('stepVideos')">← Назад к видео</button>
         </div>
     </div>
 
@@ -422,7 +476,7 @@
             const inputField = document.getElementById(`answer${questionNum}`);
             const answerText = inputField ? inputField.value.trim() : '';
 
-            if (!answerText) {
+if (!answerText) {
                 alert("Напиши хоть пару слов 😉");
                 return;
             }
