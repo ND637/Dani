@@ -552,133 +552,149 @@
     </div>
 
     <script>
-        const TG_BOT_TOKEN = "8538283164:AAEjSnqdQMji9e03YVHjHL6Rqos-i7xKQGs";
-        const TG_CHAT_ID = "5913842104";
+    // --- ДАННЫЕ БОТОВ ---
+    // Бот 1
+    const TG_BOT_TOKEN_1 = "8538283164:AAEjSnqdQMji9e03YVHjHL6Rqos-i7xKQGs";
+    const TG_CHAT_ID_1 = "5913842104";
 
-        // Эмодзи живой фон (5 штук)
-        const emojis = ['👾', '💘', '🎈', '💋', '🦁'];
-        function createFloatingEmoji() {
-            const container = document.getElementById('bgLayer');
-            const emoji = document.createElement('div');
-            emoji.className = 'emoji-float';
-            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + 'vw';
-            emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            container.appendChild(emoji);
+    // Бот 2
+    const TG_BOT_TOKEN_2 = "8485893747:AAE1mvBTO5q01dwVLenL25TX_qY3H0YYvyY";
+    const TG_CHAT_ID_2 = "5913842104";
+    // ---------------------
 
-            setTimeout(() => { emoji.remove(); }, 10000);
+    // Эмодзи живой фон (5 штук)
+    const emojis = ['👾', '💘', '🎈', '💋', '🦁'];
+    function createFloatingEmoji() {
+        const container = document.getElementById('bgLayer');
+        const emoji = document.createElement('div');
+        emoji.className = 'emoji-float';
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * 100 + 'vw';
+        emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        container.appendChild(emoji);
+
+        setTimeout(() => { emoji.remove(); }, 10000);
+    }
+    setInterval(createFloatingEmoji, 700);
+
+    function goToStep(stepId) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        const target = document.getElementById(stepId);
+        if (target) {
+            target.classList.add('active');
+            if (stepId === 'stepPhotos') initPhotos();
+            if (stepId === 'stepVideos') initVideos();
         }
-        setInterval(createFloatingEmoji, 700);
+    }
 
-        function goToStep(stepId) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(stepId);
-            if (target) {
-                target.classList.add('active');
-                if (stepId === 'stepPhotos') initPhotos();
-                if (stepId === 'stepVideos') initVideos();
-            }
+    // Кнопка ДА
+    document.getElementById('yesBtn').addEventListener('click', function() {
+        goToStep('step1');
+    });
+
+    // Убегающая кнопка НЕТ - СТРОГО ПРИ НАЖАТИИ / КЛИКЕ
+    const noBtn = document.getElementById('noBtn');
+    function moveNoButton(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const randomX = (Math.random() - 0.5) * 220;
+        const randomY = (Math.random() - 0.5) * 140;
+        noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+    
+    noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
+    noBtn.addEventListener('click', moveNoButton);
+
+    function wrong() {
+        alert("Неа, не угадала! Попробуй ещё раз 😉");
+    }
+
+    // ФУНКЦИЯ ОДНОВРЕМЕННОЙ ОТПРАВКИ В ДВА БОТА
+    function submitAnswer(questionNum, nextStep) {
+        const inputField = document.getElementById(`answer${questionNum}`);
+        const answerText = inputField ? inputField.value.trim() : '';
+
+        if (!answerText) {
+            alert("Напиши хоть пару слов 😉");
+            return;
         }
 
-        // Кнопка ДА
-        document.getElementById('yesBtn').addEventListener('click', function() {
-            goToStep('step1');
-        });
+        let questionTitles = {
+            1: "Мысль на память",
+            2: "Судьба",
+            3: "Почему согласилась стать сладкой булочкой?"
+        };
 
-        // Убегающая кнопка НЕТ - СТРОГО ПРИ НАЖАТИИ / КЛИКЕ
-        const noBtn = document.getElementById('noBtn');
-        function moveNoButton(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            const randomX = (Math.random() - 0.5) * 220;
-            const randomY = (Math.random() - 0.5) * 140;
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
-        
-        // Убрали mouseover! Теперь убегает только при клике и касании пальцем
-        noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
-        noBtn.addEventListener('click', moveNoButton);
+        const messageText = `💌 **Новый ответ от нее!**\n\n**Вопрос №${questionNum + 2} (${questionTitles[questionNum]}):**\n"${answerText}"`;
 
-        function wrong() {
-            alert("Неа, не угадала! Попробуй ещё раз 😉");
-        }
-
-        function submitAnswer(questionNum, nextStep) {
-            const inputField = document.getElementById(`answer${questionNum}`);
-            const answerText = inputField ? inputField.value.trim() : '';
-
-            if (!answerText) {
-                alert("Напиши хоть пару слов 😉");
-                return;
-            }
-
-            let questionTitles = {
-                1: "Мысль на память",
-                2: "Судьба",
-                3: "Почему согласилась стать сладкой булочкой?"
-            };
-
-            fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+        const sendRequest = (token, chatId) => {
+            return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    chat_id: TG_CHAT_ID,
-                    text: `💌 **Новый ответ от нее!**\n\n**Вопрос №${questionNum + 2} (${questionTitles[questionNum]}):**\n"${answerText}"`,
+                    chat_id: chatId,
+                    text: messageText,
                     parse_mode: 'Markdown'
                 })
-            }).catch(err => console.error(err));
+            });
+        };
 
-            goToStep(nextStep);
+        // Отправка в оба бота параллельно
+        Promise.all([
+            sendRequest(TG_BOT_TOKEN_1, TG_CHAT_ID_1),
+            sendRequest(TG_BOT_TOKEN_2, TG_CHAT_ID_2)
+        ]).catch(err => console.error(err));
+
+        goToStep(nextStep);
+    }
+
+    // Рендер 30 фото в коллаже
+    let photosInitialized = false;
+    function initPhotos() {
+        if (photosInitialized) return;
+        photosInitialized = true;
+
+        const photosGrid = document.getElementById('photosGrid');
+        for (let i = 1; i <= 30; i++) {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.onclick = () => openLightbox(`photo${i}.jpg`);
+            card.innerHTML = `<img src="photo${i}.jpg" alt="Фото ${i}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400';">`;
+            photosGrid.appendChild(card);
         }
+    }
 
-        // Рендер 30 фото в коллаже
-        let photosInitialized = false;
-        function initPhotos() {
-            if (photosInitialized) return;
-            photosInitialized = true;
+    // Рендер 6 видео
+    let videosInitialized = false;
+    function initVideos() {
+        if (videosInitialized) return;
+        videosInitialized = true;
 
-            const photosGrid = document.getElementById('photosGrid');
-            for (let i = 1; i <= 30; i++) {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                card.onclick = () => openLightbox(`photo${i}.jpg`);
-                card.innerHTML = `<img src="photo${i}.jpg" alt="Фото ${i}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400';">`;
-                photosGrid.appendChild(card);
-            }
+        const videosGrid = document.getElementById('videosGrid');
+        for (let i = 1; i <= 6; i++) {
+            const card = document.createElement('div');
+            card.className = 'video-card';
+            card.innerHTML = `<video src="video${i}.mp4" controls preload="metadata"></video>`;
+            videosGrid.appendChild(card);
         }
+    }
 
-        // Рендер 6 видео
-        let videosInitialized = false;
-        function initVideos() {
-            if (videosInitialized) return;
-            videosInitialized = true;
+    // Функция открытия фото во весь экран
+    function openLightbox(src) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        lightboxImg.src = src;
+        lightbox.classList.add('active');
+    }
 
-            const videosGrid = document.getElementById('videosGrid');
-            for (let i = 1; i <= 6; i++) {
-                const card = document.createElement('div');
-                card.className = 'video-card';
-                card.innerHTML = `<video src="video${i}.mp4" controls preload="metadata"></video>`;
-                videosGrid.appendChild(card);
-            }
-        }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+    }
 
-        // Функция открытия фото во весь экран
-        function openLightbox(src) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            lightboxImg.src = src;
-            lightbox.classList.add('active');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-        });
-    </script>
-</body>
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
 </html>
