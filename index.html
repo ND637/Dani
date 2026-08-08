@@ -5,35 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Для тебя 💖</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ELMRT7GN1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-7ELMRT7GN1');
-    </script>
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Montserrat', sans-serif; background: radial-gradient(circle at center, #881337 0%, #4c0519 50%, #1f020a 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px; color: #ffffff; overflow-x: hidden; position: relative; }
+        
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .emoji-float { position: absolute; font-size: 24px; animation: floatUp linear infinite; opacity: 0.4; user-select: none; }
+        @keyframes floatUp { from { transform: translateY(110vh) rotate(0deg); } to { transform: translateY(-10vh) rotate(360deg); } }
+
+        .card { background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(20px); border-radius: 24px; padding: 32px 24px; width: 100%; max-width: 480px; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); position: relative; z-index: 1; }
+        .subtitle { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #f472b6; font-weight: 600; margin-bottom: 12px; }
+        h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 24px; color: #ffffff; line-height: 1.3; }
+        
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.4s ease; }
+        
+        .btn-group { display: flex; justify-content: center; align-items: center; gap: 16px; min-height: 90px; margin-top: 10px; position: relative; }
+        .btn { padding: 14px 28px; font-size: 1rem; font-weight: 700; border: none; border-radius: 50px; cursor: pointer; }
+        .btn-yes { background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); color: #ffffff; }
+        .btn-no { background: rgba(255, 255, 255, 0.12); color: #e9d5ff; position: absolute; }
+        
+        .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
+        .photo-item { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+        .photo-item:hover { transform: scale(1.05); }
+
+        /* ИСПРАВЛЕННЫЙ ЛАЙТБОКС */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        #lightbox.active { display: flex; }
+        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 2px solid white; }
+        .close-lb { position: absolute; top: 20px; right: 20px; font-size: 40px; color: white; cursor: pointer; }
+
+        .answer-textarea { width: 100%; height: 100px; padding: 12px; border-radius: 12px; margin-bottom: 15px; border: none; }
+        .action-btn { width: 100%; background: #ec4899; color: white; padding: 15px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .qr-img { width: 200px; height: 200px; border: 4px solid white; border-radius: 15px; margin: 20px 0; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer" id="bgLayer"></div>
+
+    <!-- ОКНО ПРОСМОТРА ФОТО (ИЗОЛИРОВАНО) -->
+    <div id="lightbox">
+        <span class="close-lb" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="" alt="Photo">
+    </div>
+
+    <div class="card">
+        <!-- СТАРТ -->
+        <div id="step0" class="step active">
+            <h1>Будешь моей девушкой? ✨</h1>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="goToStep('step1')">Да 💖</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveNo()">Нет</button>
+            </div>
+        </div>
+
+        <!-- 5 СЕРДЕЧЕК -->
+        <div id="step1" class="step">
+            <div class="subtitle">Вопрос 2 из 5</div>
+            <h1>Выбери сердечко 💘</h1>
+            <div class="btn-group" style="gap:10px; flex-wrap: wrap;">
+                <span style="font-size: 2rem; cursor: pointer;" onclick="alert('Не то!')">💗</span>
+                <span style="font-size: 2rem; cursor: pointer;" onclick="alert('Не то!')">💞</span>
+                <span style="font-size: 2rem; cursor: pointer;" onclick="alert('Не то!')">💕</span> <!-- НОВОЕ -->
+                <span style="font-size: 2rem; cursor: pointer;" onclick="goToStep('stepCustom1')">💘</span>
+                <span style="font-size: 2rem; cursor: pointer;" onclick="alert('Не то!')">💓</span>
+            </div>
+        </div>
+
+        <!-- ДАЛЬШЕ -->
+        <div id="stepCustom1" class="step">
+            <div class="quest-title">Почему ты сладкая булочка?</div>
+            <textarea id="answer1" class="answer-textarea"></textarea>
+            <button class="action-btn" onclick="goToStep('stepPhotos')">Дальше →</button>
+        </div>
+
+        <!-- ФОТО -->
+        <div id="stepPhotos" class="step">
+            <div class="subtitle">Наши фото</div>
+            <div class="photos-grid" id="grid"></div>
+            <button class="action-btn" onclick="goToStep('stepQR')">К подарку →</button>
+        </div>
+
+        <!-- QR -->
+        <div id="stepQR" class="step">
+            <h1>Это тебе! 🎁</h1>
+            <img src="qr.jpg" class="qr-img" onerror="this.style.display='none'">
+            <p>Текст для подарка...</p>
+        </div>
+    </div>
+
+    <script>
+        // Эмодзи фон
+        setInterval(() => {
+            const div = document.createElement('div');
+            div.className = 'emoji-float';
+            div.innerText = ['👾', '💘', '🎈', '💋', '🦁'][Math.floor(Math.random()*5)];
+            div.style.left = Math.random()*100 + 'vw';
+            div.style.animationDuration = Math.random()*3 + 3 + 's';
+            document.getElementById('bgLayer').appendChild(div);
+            setTimeout(() => div.remove(), 6000);
+        }, 800);
+
+        function goToStep(id) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(id === 'stepPhotos') initPhotos();
         }
 
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            background: radial-gradient(circle at center, #881337 0%, #4c0519 50%, #1f020a 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center; 
+        function moveNo() {
+            const b = document.getElementById('noBtn');
+            b.style.transform = `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`;
+        }
+
+        function initPhotos() {
+            const grid = document.getElementById('grid');
+            if(grid.innerHTML !== '') return;
+            for(let i=1; i<=30; i++) {
+                const img = document.createElement('img');
+                img.src = `photo${i}.jpg`; // УБЕДИСЬ, ЧТО ТАКИЕ ФАЙЛЫ ЕСТЬ
+                img.className = 'photo-item';
+                img.onclick = () => openLightbox(img.src);
+                grid.appendChild(img);
+            }
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
             padding: 16px;
             color: #ffffff;
             overflow-x: hidden;
