@@ -2,224 +2,100 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для тебя 💖</title>
     
-    <!-- Красивый шрифт -->
+    <!-- Красивый шрифт Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #ec4899;
-            --secondary: #8b5cf6;
-            --text: #ffffff;
-            --bg-card: rgba(0, 0, 0, 0.4);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: radial-gradient(circle at center, #881337 0%, #4c0519 50%, #1f020a 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center; 
-            padding: 20px;
-            color: var(--text);
-            font-size: 18px; /* Увеличил базовый шрифт */
-            line-height: 1.6;
-        }
-
-        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
-        
-        .card { 
-            background: var(--bg-card);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 35px;
-            padding: 40px 25px;
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #fca5a5;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.2;
-        }
-
-        .btn-group {
+        /* Применяем красивый шрифт везде */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf2f8; /* Мягкий розовый фон */
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            min-height: 100px;
-            margin-top: 20px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #db2777;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px; /* Увеличенный размер шрифта */
+            color: #4b5563;
+            line-height: 1.6; /* Комфортный интервал */
+            margin-bottom: 20px;
         }
 
         .btn {
-            padding: 18px 35px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            background: #db2777;
+            color: white;
+            padding: 15px 30px;
             border: none;
-            border-radius: 50px;
+            border-radius: 15px;
+            font-size: 18px;
             cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: transform 0.2s;
-        }
-
-        .btn-yes { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; }
-        
-        .no-wrapper { position: relative; width: 100px; height: 60px; }
-        .btn-no { background: rgba(255, 255, 255, 0.1); color: #ddd; position: absolute; }
-
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s ease; }
-
-        .opt-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 18px;
-            border-radius: 20px;
-            width: 100%;
-            margin-bottom: 15px;
-            font-size: 1rem;
-            cursor: pointer;
+            transition: 0.3s;
             font-family: 'Poppins', sans-serif;
         }
 
-        .answer-textarea {
-            width: 100%;
-            height: 140px;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.4);
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            resize: none;
+        .btn:hover {
+            background: #be185d;
         }
-
-        .letter-box {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 25px;
-            padding: 25px;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        .action-btn {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 18px;
-            border-radius: 50px;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .photos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .photo-card { border-radius: 20px; overflow: hidden; cursor: pointer; aspect-ratio: 1/1; }
-        .photo-card img { width: 100%; height: 100%; object-fit: cover; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer" id="bgLayer"></div>
-
-    <div class="card">
-        <div id="step0" class="step active">
-            <div class="subtitle">Признание</div>
-            <h1>Будешь моей девушкой? ✨</h1>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="goToStep('step1')">Да 💖</button>
-                <div class="no-wrapper"><button class="btn btn-no" id="noBtn">Нет</button></div>
-            </div>
-        </div>
-
-        <div id="step1" class="step">
-            <h1>Выбери сердечко 💘</h1>
-            <div class="btn-group" style="flex-wrap: wrap;">
-                <span style="font-size: 2.5rem; cursor: pointer;" onclick="alert('Не то!')">💗</span>
-                <span style="font-size: 2.5rem; cursor: pointer;" onclick="alert('Не то!')">💞</span>
-                <span style="font-size: 2.5rem; cursor: pointer;" onclick="alert('Не то!')">💕</span>
-                <span style="font-size: 2.5rem; cursor: pointer;" onclick="goToStep('stepCustom1')">💘</span>
-                <span style="font-size: 2.5rem; cursor: pointer;" onclick="alert('Не то!')">💓</span>
-            </div>
-        </div>
-
-        <div id="stepCustom1" class="step">
-            <h1>Почему ты булочка?</h1>
-            <textarea id="answer1" class="answer-textarea" placeholder="Напиши ответ..."></textarea>
-            <button class="action-btn" onclick="goToStep('stepLetter')">Открыть письмо 💌</button>
-        </div>
-
-        <div id="stepLetter" class="step">
-            <h1>Моему любимому человеку 💌</h1>
-            <div class="letter-box">
-                <p>Если ты сейчас читаешь это, значит ты сказала мне самое важное слово — «да». 💗</p>
-                <p>Честно… я даже не знаю, как описать всё, что чувствую сейчас. Кажется, сердце вот-вот выпрыгнет из груди...</p>
-            </div>
-            <button class="action-btn" onclick="goToStep('stepPhotos')">Фотографии 📸</button>
-        </div>
-
-        <div id="stepPhotos" class="step">
-            <h1>Наши моменты ✨</h1>
-            <div class="photos-grid" id="photosGrid"></div>
-        </div>
+<div class="card">
+    <div id="content">
+        <h1>Привет, любовь моя! 💖</h1>
+        <p>Я очень долго думал, как тебе сказать о том, что чувствую...</p>
+        <p>Ты — самое лучшее, что случалось со мной. Каждый момент, проведенный с тобой, делает меня счастливее.</p>
+        <p>Скажи, ты хочешь быть со мной всегда?</p>
+        <button class="btn" onclick="showQuestions()">Конечно, хочу!</button>
     </div>
+</div>
 
-    <script>
-        function goToStep(id) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            if(id === 'stepPhotos') initPhotos();
-        }
+<script>
+    function showQuestions() {
+        document.getElementById('content').innerHTML = `
+            <h1>Ответь на вопросы 🥺</h1>
+            <p>1. Какой твой любимый цвет?</p>
+            <input type="text" id="q1" style="width: 80%; padding: 10px; margin-bottom: 10px;"><br>
+            <p>2. Где бы ты хотела погулять со мной?</p>
+            <input type="text" id="q2" style="width: 80%; padding: 10px; margin-bottom: 10px;"><br>
+            <button class="btn" onclick="finish()">Готово</button>
+        `;
+    }
 
-        const noBtn = document.getElementById('noBtn');
-        noBtn.onmouseover = () => {
-            noBtn.style.transform = `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`;
-        };
+    function finish() {
+        document.getElementById('content').innerHTML = `
+            <h1>Я тебя люблю! 🌹</h1>
+            <p>Спасибо за ответы! Теперь я знаю о тебе еще больше.</p>
+            <p>Ты делаешь мой мир ярче. Давай создадим самые красивые воспоминания вместе!</p>
+            <p><i>(Тут ты можешь добавить текст, который будет под QR-кодом)</i></p>
+        `;
+    }
+</script>
 
-        function initPhotos() {
-            const grid = document.getElementById('photosGrid');
-            if(grid.innerHTML !== '') return;
-            for(let i=1; i<=10; i++) {
-                const d = document.createElement('div');
-                d.className = 'photo-card';
-                d.innerHTML = `<img src="photo${i}.jpg" onerror="this.src='https://via.placeholder.com/200'">`;
-                grid.appendChild(d);
-            }
-        }
-    </script>
 </body>
 </html>
